@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const Data = require('../models/model');
+require('dotenv').config;
+const jwt = require('jsonwebtoken');
+require('./passport');
+
+router.use(express.json());
 
 //post
 router.post('/new', async (req,res)=>{
@@ -49,7 +54,7 @@ router.delete('/delete/:_id', async(req,res)=>{
     res.json(deleteData);
 })
 
-// fix new contact
+// Update
 router.patch('/update/:_id', async(req,res)=>{
     const put = await Data.findByIdAndUpdate(req.params._id,
         {
